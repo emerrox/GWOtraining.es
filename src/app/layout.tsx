@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({ // Changed to use correct variable name
 });
 
 export const metadata: Metadata = {
-  title: 'CursoIrata.org - IRATA Certified Rope Access Training',
-  description: 'Internationally recognized IRATA courses for industrial rope access. Expert-led training for all levels.',
+  title: 'gwotraining.org - GWO Certified Safety Training',
+  description: 'Internationally recognized GWO courses for wind turbine safety. Expert-led training for all levels.',
 };
 
 export default function RootLayout({

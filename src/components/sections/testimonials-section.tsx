@@ -5,8 +5,8 @@ import { Star } from 'lucide-react';
 const testimonials = [
   {
     name: 'John D.',
-    level: 'IRATA Level 3',
-    comment: 'CursoIrata.org provided top-notch training. The instructors were knowledgeable and the facilities were excellent. Highly recommend!',
+    level: 'GWO Certified',
+    comment: 'gwotraining.org provided top-notch GWO training. The instructors were knowledgeable and the facilities were excellent. Highly recommend!',
     avatarSrc: 'https://placehold.co/100x100.png',
     avatarFallback: 'JD',
     rating: 5,
@@ -14,8 +14,8 @@ const testimonials = [
   },
   {
     name: 'Sarah L.',
-    level: 'IRATA Level 1',
-    comment: 'As a beginner, I felt fully supported. The course was challenging but rewarding. I feel confident starting my rope access career.',
+    level: 'GWO BST Modules',
+    comment: 'As a newcomer to the wind industry, I felt fully supported. The GWO Basic Safety Training was challenging but rewarding. I feel confident starting my wind energy career.',
     avatarSrc: 'https://placehold.co/100x100.png',
     avatarFallback: 'SL',
     rating: 5,
@@ -23,8 +23,8 @@ const testimonials = [
   },
    {
     name: 'Mike P.',
-    level: 'IRATA Level 2',
-    comment: 'The Level 2 course pushed my skills further. Great focus on safety and complex rigging. Thanks to the team!',
+    level: 'GWO ART Certified',
+    comment: 'The GWO Advanced Rescue Training pushed my skills further. Great focus on safety and complex rescue scenarios. Thanks to the team!',
     avatarSrc: 'https://placehold.co/100x100.png',
     avatarFallback: 'MP',
     rating: 4,
@@ -41,7 +41,7 @@ export function TestimonialsSection() {
             What Our <span className="text-primary">Graduates Say</span>
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70">
-            Hear from individuals who have successfully completed their IRATA training with us.
+            Hear from individuals who have successfully completed their GWO training with us.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

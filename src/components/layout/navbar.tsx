@@ -8,7 +8,7 @@ export function Navbar() {
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Mountain className="h-6 w-6 text-primary" />
           <span className="font-bold sm:inline-block">
-            CursoIrata.org
+            gwotraining.org
           </span>
         </Link>
         <nav className="flex flex-1 items-center space-x-4 sm:space-x-6">
@@ -22,7 +22,7 @@ export function Navbar() {
             href="#about"
             className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground/80"
           >
-            About IRATA
+            About GWO
           </Link>
           <Link
             href="#contact"

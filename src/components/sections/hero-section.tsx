@@ -8,24 +8,24 @@ export function HeroSection() {
       <div className="absolute inset-0 -z-10">
         <Image
           src="https://placehold.co/1920x1080.png"
-          alt="Rope access technician at height"
+          alt="Wind turbine technician training at height"
           layout="fill"
           objectFit="cover"
           quality={80}
           className="opacity-20"
-          data-ai-hint="rope access training"
+          data-ai-hint="wind turbine safety training"
         />
          <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background"></div>
       </div>
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-          Master <span className="text-primary">Rope Access</span>
+          Achieve <span className="text-primary">Peak Safety</span>
           <br />
-          with IRATA Certified Training
+          with GWO Certified Training
         </h1>
         <p className="mt-6 max-w-3xl mx-auto text-lg text-foreground/80 sm:text-xl md:text-2xl">
-          Join CursoIrata.org for internationally recognized IRATA courses. 
-          Advance your career with expert-led training in industrial rope access.
+          Join gwotraining.org for internationally recognized GWO courses. 
+          Advance your career with expert-led training for the wind energy industry.
         </p>
         <div className="mt-10 flex justify-center space-x-4">
           <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">

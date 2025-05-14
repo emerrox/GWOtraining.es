@@ -1,3 +1,4 @@
+
 "use server";
 
 import { z } from "zod";
@@ -50,8 +51,8 @@ export async function submitContactForm(
     return {
       message: "Form validation failed. Please check the fields below.",
       status: "error",
-      errors: { ...fieldErrors }, // _form error can be added if general form error occurs
-      fieldValues: { // Return the raw form data as fieldValues
+      errors: { ...fieldErrors }, 
+      fieldValues: { 
         name: rawFormData.name as string,
         email: rawFormData.email as string,
         phone: rawFormData.phone as string | undefined,
@@ -64,7 +65,6 @@ export async function submitContactForm(
   const { name, email, phone, course, message } = validatedFields.data;
   const recipientEmail = "app@totalhse.com"; // Target email
 
-  // Configure SMTP transporter using test data
   const transporter = nodemailer.createTransport({
     host: TEST_SMTP.host,
     port: TEST_SMTP.port,
@@ -73,19 +73,16 @@ export async function submitContactForm(
       user: TEST_SMTP.user,
       pass: TEST_SMTP.pass,
     },
-    // Optional: Add debug and logger for detailed SMTP transaction logs
-    // logger: true,
-    // debug: true, 
   });
 
   try {
     await transporter.sendMail({
-      from: `"${name}" <${TEST_SMTP.from}>`, // Using app's email as sender but showing user's name
+      from: `"${name}" <${TEST_SMTP.from}>`, 
       to: recipientEmail,
-      replyTo: email, // Set user's email as reply-to
-      subject: `New IRATA Course Inquiry from ${name} via CursoIrata.org`,
+      replyTo: email, 
+      subject: `New GWO Course Inquiry from ${name} via gwotraining.org`,
       html: `
-        <h2>New Contact Form Submission from CursoIrata.org</h2>
+        <h2>New Contact Form Submission from gwotraining.org</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
@@ -102,12 +99,9 @@ export async function submitContactForm(
     };
   } catch (error) {
     console.error("Error sending email via SMTP server:", error);
-    // It's good practice to not expose detailed error messages to the client.
-    // Log the detailed error on the server.
     let errorMessage = "Failed to send message due to a server error. Please try again later.";
     if (error instanceof Error) {
-         // Potentially map known SMTP errors to more user-friendly messages if needed
-        // For now, keep it generic.
+       
     }
 
     return {

@@ -4,33 +4,33 @@ import { Users, ShieldCheck, Award, TrendingUp, MapPin, BookOpen } from 'lucide-
 const benefits = [
   {
     icon: Users,
-    title: 'Certified Instructors',
-    description: 'Learn from highly experienced IRATA certified instructors dedicated to your success.',
+    title: 'GWO Certified Instructors',
+    description: 'Learn from highly experienced GWO certified instructors dedicated to your success in the wind industry.',
   },
   {
     icon: MapPin,
     title: 'State-of-the-Art Facilities',
-    description: 'Train in a safe, controlled environment with modern equipment and realistic scenarios.',
+    description: 'Train in a safe, controlled environment with modern equipment and realistic wind turbine scenarios.',
   },
   {
     icon: ShieldCheck,
     title: 'Safety First Culture',
-    description: 'We prioritize safety above all, instilling best practices throughout your training.',
+    description: 'We prioritize safety above all, instilling GWO best practices throughout your training.',
   },
   {
     icon: Award,
     title: 'Globally Recognized Certification',
-    description: 'Gain an IRATA qualification respected by employers worldwide.',
+    description: 'Gain a GWO qualification respected by wind energy employers worldwide.',
   },
   {
     icon: TrendingUp,
     title: 'Career Support',
-    description: 'We provide guidance to help you navigate your career path in the rope access industry.',
+    description: 'We provide guidance to help you navigate your career path in the burgeoning wind energy sector.',
   },
   {
     icon: BookOpen,
     title: 'Comprehensive Curriculum',
-    description: 'Our courses cover all theoretical and practical aspects required by IRATA standards.',
+    description: 'Our courses cover all theoretical and practical aspects required by GWO standards for wind turbine safety.',
   }
 ];
 
@@ -40,10 +40,10 @@ export function WhyChooseUsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Why Train with <span className="text-accent">CursoIrata.org</span>?
+            Why Train with <span className="text-accent">gwotraining.org</span>?
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70">
-            We are committed to providing top-quality IRATA training that equips you for a successful and safe career.
+            We are committed to providing top-quality GWO training that equips you for a successful and safe career in the wind industry.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useActionState, startTransition } from 'react'; // Added startTransition
+import { useEffect, useActionState, startTransition } from 'react'; 
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -87,7 +87,7 @@ export function ContactFormComponent() {
     }
   }, [state, toast, form]);
 
-  const handleFormSubmit = (data: ContactFormValues) => { // No longer needs to be async
+  const handleFormSubmit = (data: ContactFormValues) => { 
     const formData = new FormData();
     (Object.keys(data) as Array<keyof ContactFormValues>).forEach((key) => {
       const value = data[key];
@@ -95,7 +95,7 @@ export function ContactFormComponent() {
         formData.append(key, String(value));
       }
     });
-    startTransition(() => { // Wrap the action call in startTransition
+    startTransition(() => { 
       formAction(formData);
     });
   };
@@ -162,12 +162,13 @@ export function ContactFormComponent() {
           defaultValue={form.getValues("course") || undefined}
         >
           <SelectTrigger id="course" aria-describedby={state.errors?.course ? "course-server-error" : undefined}>
-            <SelectValue placeholder="Select a course" />
+            <SelectValue placeholder="Select a GWO module" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="IRATA Level 1">IRATA Level 1</SelectItem>
-            <SelectItem value="IRATA Level 2">IRATA Level 2</SelectItem>
-            <SelectItem value="IRATA Level 3">IRATA Level 3</SelectItem>
+            <SelectItem value="GWO Basic Safety Training (BST)">GWO Basic Safety Training (BST)</SelectItem>
+            <SelectItem value="GWO Basic Technical Training (BTT)">GWO Basic Technical Training (BTT)</SelectItem>
+            <SelectItem value="GWO Advanced Rescue Training (ART)">GWO Advanced Rescue Training (ART)</SelectItem>
+            <SelectItem value="GWO Enhanced First Aid (EFA)">GWO Enhanced First Aid (EFA)</SelectItem>
             <SelectItem value="Other Inquiry">Other Inquiry</SelectItem>
             <SelectItem value="not-specified">None / Not Specified</SelectItem>
           </SelectContent>

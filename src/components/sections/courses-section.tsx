@@ -2,25 +2,25 @@ import { CourseCard } from '@/components/course-card';
 
 const courses = [
   {
-    title: 'IRATA Level 1',
-    level: 'Foundation Level',
-    description: 'Your first step into the rope access industry. Learn fundamental rope access maneuvers, equipment use, and safety protocols.',
+    title: 'GWO Basic Safety Training (BST)',
+    level: 'Core Safety Modules',
+    description: 'Essential safety training covering First Aid, Manual Handling, Fire Awareness, Working at Heights, and Sea Survival (module dependent).',
     imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'rope access basic',
+    imageHint: 'wind safety core',
   },
   {
-    title: 'IRATA Level 2',
-    level: 'Intermediate Level',
-    description: 'Build upon Level 1 skills with advanced rigging, rescue techniques, and a greater understanding of rope access legislation.',
+    title: 'GWO Working at Heights',
+    level: 'Specialized Module',
+    description: 'In-depth training on safe work at height, hazard identification, advanced rescue and use of personal protective equipment (PPE).',
     imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'rope access intermediate',
+    imageHint: 'height safety harness',
   },
   {
-    title: 'IRATA Level 3',
-    level: 'Advanced Supervisor Level',
-    description: 'The highest level, qualifying you to supervise rope access projects, perform advanced rescues, and understand equipment inspection.',
+    title: 'GWO Advanced Rescue Training (ART)',
+    level: 'Advanced Module',
+    description: 'Develop skills for advanced rescue operations in various wind turbine nacelle, tower and basement environments.',
     imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'rope access advanced',
+    imageHint: 'rescue training advanced',
   },
 ];
 
@@ -30,10 +30,10 @@ export function CoursesSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Our <span className="text-primary">IRATA Courses</span>
+            Our <span className="text-primary">GWO Modules</span>
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70">
-            We offer comprehensive IRATA training for all levels, from beginner to advanced supervisor.
+            We offer comprehensive GWO training modules to ensure your safety in the wind industry.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

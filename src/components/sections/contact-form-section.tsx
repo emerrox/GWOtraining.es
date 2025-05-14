@@ -20,7 +20,7 @@ export function ContactFormSection() {
             <CardHeader>
               <CardTitle className="text-2xl text-primary">Contact Us</CardTitle>
               <CardDescription>
-                We&apos;re here to help you on your journey to becoming an IRATA certified professional.
+                We&apos;re here to help you on your journey to becoming a GWO certified professional.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -30,7 +30,7 @@ export function ContactFormSection() {
           <div className="hidden lg:block relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
              <Image
                 src="https://placehold.co/600x450.png"
-                alt="Contact person for IRATA courses"
+                alt="Contact person for GWO courses"
                 layout="fill"
                 objectFit="cover"
                 className="rounded-lg"
