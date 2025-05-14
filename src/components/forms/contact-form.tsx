@@ -139,7 +139,7 @@ export function ContactFormComponent() {
 
       <div>
         <Label htmlFor="course">Course of Interest (Optional)</Label>
-        <Select name="course" onValueChange={(value) => form.setValue('course', value)} defaultValue={form.getValues("course")}>
+        <Select name="course" onValueChange={(value) => form.setValue('course', value === 'not-specified' ? '' : value)} defaultValue={form.getValues("course") || undefined}>
           <SelectTrigger id="course">
             <SelectValue placeholder="Select a course" />
           </SelectTrigger>
@@ -148,7 +148,7 @@ export function ContactFormComponent() {
             <SelectItem value="IRATA Level 2">IRATA Level 2</SelectItem>
             <SelectItem value="IRATA Level 3">IRATA Level 3</SelectItem>
             <SelectItem value="Other Inquiry">Other Inquiry</SelectItem>
-            <SelectItem value="">None / Not Specified</SelectItem>
+            <SelectItem value="not-specified">None / Not Specified</SelectItem>
           </SelectContent>
         </Select>
         {state.errors?.course && !form.formState.errors.course && (
