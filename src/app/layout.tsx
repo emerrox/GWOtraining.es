@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({ // Changed to use correct variable name
 });
 
 export const metadata: Metadata = {
-  title: 'gwotraining.org - GWO Certified Safety Training',
-  description: 'Internationally recognized GWO courses for wind turbine safety. Expert-led training for all levels.',
+  title: 'gwotraining.es - Formación Certificada GWO en Seguridad',
+  description: 'Cursos GWO reconocidos internacionalmente para la seguridad en aerogeneradores. Formación impartida por expertos para todos los niveles.',
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
         <Toaster />

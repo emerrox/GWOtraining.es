@@ -4,27 +4,27 @@ import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    name: 'John D.',
-    level: 'GWO Certified',
-    comment: 'gwotraining.org provided top-notch GWO training. The instructors were knowledgeable and the facilities were excellent. Highly recommend!',
+    name: 'Juan D.',
+    level: 'Certificado GWO',
+    comment: 'gwotraining.es proporcionó una formación GWO de primera categoría. Los instructores estaban muy bien informados y las instalaciones eran excelentes. ¡Muy recomendable!',
     avatarSrc: 'https://placehold.co/100x100.png',
     avatarFallback: 'JD',
     rating: 5,
     imageHint: 'person portrait',
   },
   {
-    name: 'Sarah L.',
-    level: 'GWO BST Modules',
-    comment: 'As a newcomer to the wind industry, I felt fully supported. The GWO Basic Safety Training was challenging but rewarding. I feel confident starting my wind energy career.',
+    name: 'Sara L.',
+    level: 'Módulos GWO BST',
+    comment: 'Como recién llegada a la industria eólica, me sentí totalmente apoyada. La Formación Básica en Seguridad de GWO fue desafiante pero gratificante. Me siento segura para comenzar mi carrera en la energía eólica.',
     avatarSrc: 'https://placehold.co/100x100.png',
     avatarFallback: 'SL',
     rating: 5,
     imageHint: 'person smiling',
   },
    {
-    name: 'Mike P.',
-    level: 'GWO ART Certified',
-    comment: 'The GWO Advanced Rescue Training pushed my skills further. Great focus on safety and complex rescue scenarios. Thanks to the team!',
+    name: 'Miguel P.',
+    level: 'Certificado GWO ART',
+    comment: 'La Formación Avanzada en Rescate de GWO llevó mis habilidades más allá. Gran enfoque en la seguridad y escenarios de rescate complejos. ¡Gracias al equipo!',
     avatarSrc: 'https://placehold.co/100x100.png',
     avatarFallback: 'MP',
     rating: 4,
@@ -38,10 +38,10 @@ export function TestimonialsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            What Our <span className="text-primary">Graduates Say</span>
+            Lo que Dicen Nuestros <span className="text-primary">Graduados</span>
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70">
-            Hear from individuals who have successfully completed their GWO training with us.
+            Escucha a personas que han completado con éxito su formación GWO con nosotros.
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

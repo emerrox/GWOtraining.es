@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useEffect, useActionState, startTransition } from 'react'; 
-import { useFormStatus } from 'react-dom';
+import { useEffect, startTransition } from 'react'; 
+import { useActionState, useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -23,11 +23,11 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 const contactFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
+  name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
+  email: z.string().email({ message: "Por favor, introduce una dirección de correo electrónico válida." }),
   phone: z.string().optional(),
   course: z.string().optional(),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+  message: z.string().min(10, { message: "El mensaje debe tener al menos 10 caracteres." }),
 });
 
 const initialState: ContactFormState = {
@@ -47,7 +47,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" disabled={pending} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-      {pending ? 'Sending...' : 'Send Message'}
+      {pending ? 'Enviando...' : 'Enviar Mensaje'}
     </Button>
   );
 }
@@ -64,14 +64,14 @@ export function ContactFormComponent() {
   useEffect(() => {
     if (state.status === 'success') {
       toast({
-        title: "Success!",
+        title: "¡Éxito!",
         description: state.message,
       });
       form.reset(initialState.fieldValues);
     } else if (state.status === 'error') {
       toast({
         title: "Error",
-        description: state.message || "An error occurred. Please try again.",
+        description: state.message || "Ocurrió un error. Por favor, inténtalo de nuevo.",
         variant: "destructive",
       });
       if (state.errors) {
@@ -86,7 +86,7 @@ export function ContactFormComponent() {
       }
     }
   }, [state, toast, form]);
-
+  
   const handleFormSubmit = (data: ContactFormValues) => { 
     const formData = new FormData();
     (Object.keys(data) as Array<keyof ContactFormValues>).forEach((key) => {
@@ -107,7 +107,7 @@ export function ContactFormComponent() {
       onSubmit={form.handleSubmit(handleFormSubmit)}
     >
       <div>
-        <Label htmlFor="name" className={cn(form.formState.errors.name && "text-destructive")}>Full Name</Label>
+        <Label htmlFor="name" className={cn(form.formState.errors.name && "text-destructive")}>Nombre Completo</Label>
         <Input
           id="name"
           {...form.register("name")}
@@ -124,7 +124,7 @@ export function ContactFormComponent() {
       </div>
 
       <div>
-        <Label htmlFor="email" className={cn(form.formState.errors.email && "text-destructive")}>Email Address</Label>
+        <Label htmlFor="email" className={cn(form.formState.errors.email && "text-destructive")}>Dirección de Correo Electrónico</Label>
         <Input
           id="email"
           type="email"
@@ -142,7 +142,7 @@ export function ContactFormComponent() {
       </div>
 
       <div>
-        <Label htmlFor="phone">Phone Number (Optional)</Label>
+        <Label htmlFor="phone">Número de Teléfono (Opcional)</Label>
         <Input
           id="phone"
           type="tel"
@@ -155,22 +155,22 @@ export function ContactFormComponent() {
       </div>
 
       <div>
-        <Label htmlFor="course">Course of Interest (Optional)</Label>
+        <Label htmlFor="course">Curso de Interés (Opcional)</Label>
         <Select
           name="course"
           onValueChange={(value) => form.setValue('course', value === 'not-specified' ? '' : value)}
           defaultValue={form.getValues("course") || undefined}
         >
           <SelectTrigger id="course" aria-describedby={state.errors?.course ? "course-server-error" : undefined}>
-            <SelectValue placeholder="Select a GWO module" />
+            <SelectValue placeholder="Selecciona un módulo GWO" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="GWO Basic Safety Training (BST)">GWO Basic Safety Training (BST)</SelectItem>
-            <SelectItem value="GWO Basic Technical Training (BTT)">GWO Basic Technical Training (BTT)</SelectItem>
-            <SelectItem value="GWO Advanced Rescue Training (ART)">GWO Advanced Rescue Training (ART)</SelectItem>
-            <SelectItem value="GWO Enhanced First Aid (EFA)">GWO Enhanced First Aid (EFA)</SelectItem>
-            <SelectItem value="Other Inquiry">Other Inquiry</SelectItem>
-            <SelectItem value="not-specified">None / Not Specified</SelectItem>
+            <SelectItem value="GWO Formacion Basica en Seguridad (BST)">GWO Formación Básica en Seguridad (BST)</SelectItem>
+            <SelectItem value="GWO Formacion Tecnica Basica (BTT)">GWO Formación Técnica Básica (BTT)</SelectItem>
+            <SelectItem value="GWO Formacion Avanzada en Rescate (ART)">GWO Formación Avanzada en Rescate (ART)</SelectItem>
+            <SelectItem value="GWO Primeros Auxilios Avanzados (EFA)">GWO Primeros Auxilios Avanzados (EFA)</SelectItem>
+            <SelectItem value="Otra Consulta">Otra Consulta</SelectItem>
+            <SelectItem value="not-specified">Ninguno / No Especificado</SelectItem>
           </SelectContent>
         </Select>
         {state.errors?.course && !form.formState.errors.course && (
@@ -179,7 +179,7 @@ export function ContactFormComponent() {
       </div>
 
       <div>
-        <Label htmlFor="message" className={cn(form.formState.errors.message && "text-destructive")}>Message</Label>
+        <Label htmlFor="message" className={cn(form.formState.errors.message && "text-destructive")}>Mensaje</Label>
         <Textarea
           id="message"
           rows={5}

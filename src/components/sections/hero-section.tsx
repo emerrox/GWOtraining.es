@@ -8,7 +8,7 @@ export function HeroSection() {
       <div className="absolute inset-0 -z-10">
         <Image
           src="https://placehold.co/1920x1080.png"
-          alt="Wind turbine technician training at height"
+          alt="Formación de técnico de aerogeneradores en altura"
           layout="fill"
           objectFit="cover"
           quality={80}
@@ -19,20 +19,20 @@ export function HeroSection() {
       </div>
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-          Achieve <span className="text-primary">Peak Safety</span>
+          Alcanza la <span className="text-primary">Máxima Seguridad</span>
           <br />
-          with GWO Certified Training
+          con la Formación Certificada GWO
         </h1>
         <p className="mt-6 max-w-3xl mx-auto text-lg text-foreground/80 sm:text-xl md:text-2xl">
-          Join gwotraining.org for internationally recognized GWO courses. 
-          Advance your career with expert-led training for the wind energy industry.
+          Únete a gwotraining.es para obtener cursos GWO reconocidos internacionalmente. 
+          Avanza en tu carrera con formación impartida por expertos para la industria de la energía eólica.
         </p>
         <div className="mt-10 flex justify-center space-x-4">
           <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-            <Link href="#courses">Explore Courses</Link>
+            <Link href="#courses">Explorar Cursos</Link>
           </Button>
           <Button asChild variant="outline" size="lg" className="border-accent text-accent hover:bg-accent/10">
-            <Link href="#contact">Contact Us</Link>
+            <Link href="#contact">Contáctanos</Link>
           </Button>
         </div>
       </div>

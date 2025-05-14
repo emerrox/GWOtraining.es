@@ -8,7 +8,7 @@ export function Navbar() {
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Mountain className="h-6 w-6 text-primary" />
           <span className="font-bold sm:inline-block">
-            gwotraining.org
+            gwotraining.es
           </span>
         </Link>
         <nav className="flex flex-1 items-center space-x-4 sm:space-x-6">
@@ -16,19 +16,19 @@ export function Navbar() {
             href="#courses"
             className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground/80"
           >
-            Courses
+            Cursos
           </Link>
           <Link
             href="#about"
             className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground/80"
           >
-            About GWO
+            Sobre GWO
           </Link>
           <Link
             href="#contact"
             className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground/80"
           >
-            Contact
+            Contacto
           </Link>
         </nav>
       </div>

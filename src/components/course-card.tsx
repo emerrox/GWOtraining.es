@@ -34,7 +34,7 @@ export function CourseCard({ title, level, description, imageUrl, imageHint }: C
       </CardContent>
       <CardFooter className="p-6 pt-0">
         <Button asChild className="w-full bg-primary hover:bg-primary/80 text-primary-foreground">
-          <Link href="#contact">Learn More & Enroll</Link>
+          <Link href="#contact">Saber Más e Inscribirse</Link>
         </Button>
       </CardFooter>
     </Card>

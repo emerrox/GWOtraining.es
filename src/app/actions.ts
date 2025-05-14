@@ -16,11 +16,11 @@ const TEST_SMTP = {
 
 // Define the schema for form validation from the server-side
 const contactFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
+  name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
+  email: z.string().email({ message: "Por favor, introduce una dirección de correo electrónico válida." }),
   phone: z.string().optional().or(z.literal('')), // Allow empty string or make it truly optional
   course: z.string().optional().or(z.literal('')),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+  message: z.string().min(10, { message: "El mensaje debe tener al menos 10 caracteres." }),
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
@@ -49,7 +49,7 @@ export async function submitContactForm(
   if (!validatedFields.success) {
     const fieldErrors = validatedFields.error.flatten().fieldErrors;
     return {
-      message: "Form validation failed. Please check the fields below.",
+      message: "Falló la validación del formulario. Por favor, revisa los campos.",
       status: "error",
       errors: { ...fieldErrors }, 
       fieldValues: { 
@@ -80,26 +80,26 @@ export async function submitContactForm(
       from: `"${name}" <${TEST_SMTP.from}>`, 
       to: recipientEmail,
       replyTo: email, 
-      subject: `New GWO Course Inquiry from ${name} via gwotraining.org`,
+      subject: `Nueva Consulta de Curso GWO de ${name} vía gwotraining.es`,
       html: `
-        <h2>New Contact Form Submission from gwotraining.org</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-        ${course ? `<p><strong>Course of Interest:</strong> ${course}</p>` : ''}
-        <p><strong>Message:</strong></p>
+        <h2>Nuevo Envío de Formulario de Contacto desde gwotraining.es</h2>
+        <p><strong>Nombre:</strong> ${name}</p>
+        <p><strong>Correo Electrónico:</strong> ${email}</p>
+        ${phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : ''}
+        ${course ? `<p><strong>Curso de Interés:</strong> ${course}</p>` : ''}
+        <p><strong>Mensaje:</strong></p>
         <p>${message.replace(/\n/g, '<br>')}</p>
       `,
     });
     
     return {
-      message: "Thank you! Your message has been sent successfully.",
+      message: "¡Gracias! Tu mensaje ha sido enviado correctamente.",
       status: "success",
       errors: null,
     };
   } catch (error) {
     console.error("Error sending email via SMTP server:", error);
-    let errorMessage = "Failed to send message due to a server error. Please try again later.";
+    let errorMessage = "No se pudo enviar el mensaje debido a un error del servidor. Por favor, inténtalo de nuevo más tarde.";
     if (error instanceof Error) {
        
     }
@@ -107,7 +107,7 @@ export async function submitContactForm(
     return {
       message: errorMessage,
       status: "error",
-      errors: { _form: ["Server error during email dispatch."] },
+      errors: { _form: ["Error del servidor durante el envío del correo."] },
       fieldValues: validatedFields.data,
     };
   }

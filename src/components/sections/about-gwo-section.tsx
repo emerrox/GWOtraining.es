@@ -8,10 +8,10 @@ export function AboutGwoSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            What is <span className="text-accent">GWO</span>?
+            ¿Qué es <span className="text-accent">GWO</span>?
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70">
-            GWO (Global Wind Organisation) is a non-profit body founded by wind turbine manufacturers and owners. GWO sets common international standards for safety training and emergency procedures.
+            GWO (Global Wind Organisation) es una organización sin ánimo de lucro fundada por fabricantes y propietarios de aerogeneradores. GWO establece estándares internacionales comunes para la formación en seguridad y procedimientos de emergencia.
           </p>
         </div>
 
@@ -19,7 +19,7 @@ export function AboutGwoSection() {
           <div>
             <Image
               src="https://placehold.co/600x400.png"
-              alt="GWO training safety equipment"
+              alt="Equipamiento de seguridad para formación GWO"
               width={600}
               height={400}
               className="rounded-lg shadow-lg object-cover"
@@ -31,12 +31,12 @@ export function AboutGwoSection() {
               <CardHeader>
                 <CardTitle className="flex items-center text-xl text-primary">
                   <ShieldCheck className="mr-2 h-6 w-6" />
-                  Standardized Safety Training
+                  Formación Estandarizada en Seguridad
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-foreground/80">
-                  GWO establishes standardized safety training and emergency procedures, ensuring a recognized level of competence for technicians in the wind industry.
+                  GWO establece formación en seguridad y procedimientos de emergencia estandarizados, asegurando un nivel de competencia reconocido para los técnicos de la industria eólica.
                 </p>
               </CardContent>
             </Card>
@@ -44,12 +44,12 @@ export function AboutGwoSection() {
               <CardHeader>
                 <CardTitle className="flex items-center text-xl text-primary">
                   <Globe className="mr-2 h-6 w-6" />
-                  Industry-Wide Acceptance
+                  Aceptación en Toda la Industria
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-foreground/80">
-                  GWO certification is recognized by leading wind turbine manufacturers and owners globally, opening doors to careers worldwide.
+                  La certificación GWO es reconocida por los principales fabricantes y propietarios de aerogeneradores a nivel mundial, abriendo puertas a carreras en todo el mundo.
                 </p>
               </CardContent>
             </Card>
@@ -57,12 +57,12 @@ export function AboutGwoSection() {
               <CardHeader>
                 <CardTitle className="flex items-center text-xl text-primary">
                   <TrendingUp className="mr-2 h-6 w-6" />
-                  Essential for Wind Careers
+                  Esencial para Carreras en el Sector Eólico
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-foreground/80">
-                  GWO training is often a prerequisite for working on wind turbines, enhancing your employability and career progression in the renewable energy sector.
+                  La formación GWO es a menudo un requisito previo para trabajar en aerogeneradores, mejorando tu empleabilidad y progresión profesional en el sector de las energías renovables.
                 </p>
               </CardContent>
             </Card>
