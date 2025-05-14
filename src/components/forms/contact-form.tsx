@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useEffect, useActionState } from 'react'; // Changed from 'react-dom' and 'useFormState'
-import { useFormStatus } from 'react-dom'; // useFormStatus remains in react-dom
+import { useEffect, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -53,7 +53,7 @@ function SubmitButton() {
 }
 
 export function ContactFormComponent() {
-  const [state, formAction] = useActionState(submitContactForm, initialState); // Changed from useFormState
+  const [state, formAction] = useActionState(submitContactForm, initialState);
   const { toast } = useToast();
 
   const form = useForm<ContactFormValues>({
@@ -89,9 +89,26 @@ export function ContactFormComponent() {
     }
   }, [state, toast, form]);
 
+  const handleFormSubmit = async (data: ContactFormValues) => {
+    const formData = new FormData();
+    // Iterate over the data object from react-hook-form and append to FormData
+    (Object.keys(data) as Array<keyof ContactFormValues>).forEach((key) => {
+      const value = data[key];
+      // Append if the value is not undefined or null.
+      // Empty strings (e.g., for an unselected optional course) will be appended as empty strings.
+      if (value !== undefined && value !== null) {
+        formData.append(key, String(value));
+      }
+    });
+    await formAction(formData);
+  };
 
   return (
-    <form action={formAction} className="space-y-6" onSubmit={form.handleSubmit(() => formAction(new FormData(form.control._formValues)))}>
+    <form
+      action={formAction} // Server action for progressive enhancement or if JS fails
+      className="space-y-6"
+      onSubmit={form.handleSubmit(handleFormSubmit)} // RHF handles client validation and calls handleFormSubmit
+    >
       <div>
         <Label htmlFor="name" className={cn(form.formState.errors.name && "text-destructive")}>Full Name</Label>
         <Input
@@ -99,9 +116,10 @@ export function ContactFormComponent() {
           {...form.register("name")}
           className={cn(form.formState.errors.name && "border-destructive focus-visible:ring-destructive")}
           aria-invalid={!!form.formState.errors.name}
+          aria-describedby={form.formState.errors.name ? "name-error" : undefined}
         />
         {form.formState.errors.name && (
-          <p className="text-sm text-destructive mt-1">{form.formState.errors.name.message}</p>
+          <p id="name-error" className="text-sm text-destructive mt-1">{form.formState.errors.name.message}</p>
         )}
         {state.errors?.name && !form.formState.errors.name && (
            <p className="text-sm text-destructive mt-1">{state.errors.name.join(', ')}</p>
@@ -116,9 +134,10 @@ export function ContactFormComponent() {
           {...form.register("email")}
           className={cn(form.formState.errors.email && "border-destructive focus-visible:ring-destructive")}
           aria-invalid={!!form.formState.errors.email}
+          aria-describedby={form.formState.errors.email ? "email-error" : undefined}
         />
         {form.formState.errors.email && (
-          <p className="text-sm text-destructive mt-1">{form.formState.errors.email.message}</p>
+          <p id="email-error" className="text-sm text-destructive mt-1">{form.formState.errors.email.message}</p>
         )}
          {state.errors?.email && !form.formState.errors.email && (
            <p className="text-sm text-destructive mt-1">{state.errors.email.join(', ')}</p>
@@ -131,16 +150,17 @@ export function ContactFormComponent() {
           id="phone"
           type="tel"
           {...form.register("phone")}
+          aria-describedby={state.errors?.phone ? "phone-server-error" : undefined}
         />
          {state.errors?.phone && !form.formState.errors.phone && (
-           <p className="text-sm text-destructive mt-1">{state.errors.phone.join(', ')}</p>
+           <p id="phone-server-error" className="text-sm text-destructive mt-1">{state.errors.phone.join(', ')}</p>
         )}
       </div>
 
       <div>
         <Label htmlFor="course">Course of Interest (Optional)</Label>
         <Select name="course" onValueChange={(value) => form.setValue('course', value === 'not-specified' ? '' : value)} defaultValue={form.getValues("course") || undefined}>
-          <SelectTrigger id="course">
+          <SelectTrigger id="course" aria-describedby={state.errors?.course ? "course-server-error" : undefined}>
             <SelectValue placeholder="Select a course" />
           </SelectTrigger>
           <SelectContent>
@@ -152,7 +172,7 @@ export function ContactFormComponent() {
           </SelectContent>
         </Select>
         {state.errors?.course && !form.formState.errors.course && (
-           <p className="text-sm text-destructive mt-1">{state.errors.course.join(', ')}</p>
+           <p id="course-server-error" className="text-sm text-destructive mt-1">{state.errors.course.join(', ')}</p>
         )}
       </div>
 
@@ -164,9 +184,10 @@ export function ContactFormComponent() {
           {...form.register("message")}
           className={cn(form.formState.errors.message && "border-destructive focus-visible:ring-destructive")}
           aria-invalid={!!form.formState.errors.message}
+          aria-describedby={form.formState.errors.message ? "message-error" : undefined}
         />
         {form.formState.errors.message && (
-          <p className="text-sm text-destructive mt-1">{form.formState.errors.message.message}</p>
+          <p id="message-error" className="text-sm text-destructive mt-1">{form.formState.errors.message.message}</p>
         )}
         {state.errors?.message && !form.formState.errors.message && (
            <p className="text-sm text-destructive mt-1">{state.errors.message.join(', ')}</p>
