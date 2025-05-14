@@ -1,8 +1,7 @@
 
 "use client";
 
-import { useEffect, startTransition } from 'react'; 
-import { useActionState, useFormStatus } from 'react-dom';
+import { useEffect, startTransition, useActionState, useFormStatus } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -91,8 +90,12 @@ export function ContactFormComponent() {
     const formData = new FormData();
     (Object.keys(data) as Array<keyof ContactFormValues>).forEach((key) => {
       const value = data[key];
-      if (value !== undefined && value !== null) {
+      if (value !== undefined && value !== null && value !== '') { 
         formData.append(key, String(value));
+      } else if (value === '' && (key === 'phone' || key === 'course')) {
+        // Do not append if optional and empty
+      } else if (value !== undefined && value !== null) { 
+         formData.append(key, String(value));
       }
     });
     startTransition(() => { 
@@ -204,3 +207,4 @@ export function ContactFormComponent() {
     </form>
   );
 }
+
