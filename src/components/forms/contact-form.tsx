@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useActionState } from 'react';
+import { useEffect, useActionState, startTransition } from 'react'; // Added startTransition
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -67,47 +67,44 @@ export function ContactFormComponent() {
         title: "Success!",
         description: state.message,
       });
-      form.reset(initialState.fieldValues); // Reset form fields to initial empty state
+      form.reset(initialState.fieldValues);
     } else if (state.status === 'error') {
       toast({
         title: "Error",
         description: state.message || "An error occurred. Please try again.",
         variant: "destructive",
       });
-      // Set errors for react-hook-form from server response
       if (state.errors) {
         Object.entries(state.errors).forEach(([key, value]) => {
-          if (key !== '_form' && value) { // _form is a general error, not specific field
+          if (key !== '_form' && value) {
              form.setError(key as keyof ContactFormValues, { type: 'server', message: value.join(', ') });
           }
         });
       }
-      // Persist field values on error
       if (state.fieldValues) {
         form.reset(state.fieldValues);
       }
     }
   }, [state, toast, form]);
 
-  const handleFormSubmit = async (data: ContactFormValues) => {
+  const handleFormSubmit = (data: ContactFormValues) => { // No longer needs to be async
     const formData = new FormData();
-    // Iterate over the data object from react-hook-form and append to FormData
     (Object.keys(data) as Array<keyof ContactFormValues>).forEach((key) => {
       const value = data[key];
-      // Append if the value is not undefined or null.
-      // Empty strings (e.g., for an unselected optional course) will be appended as empty strings.
       if (value !== undefined && value !== null) {
         formData.append(key, String(value));
       }
     });
-    await formAction(formData);
+    startTransition(() => { // Wrap the action call in startTransition
+      formAction(formData);
+    });
   };
 
   return (
     <form
-      action={formAction} // Server action for progressive enhancement or if JS fails
+      action={formAction}
       className="space-y-6"
-      onSubmit={form.handleSubmit(handleFormSubmit)} // RHF handles client validation and calls handleFormSubmit
+      onSubmit={form.handleSubmit(handleFormSubmit)}
     >
       <div>
         <Label htmlFor="name" className={cn(form.formState.errors.name && "text-destructive")}>Full Name</Label>
@@ -116,13 +113,13 @@ export function ContactFormComponent() {
           {...form.register("name")}
           className={cn(form.formState.errors.name && "border-destructive focus-visible:ring-destructive")}
           aria-invalid={!!form.formState.errors.name}
-          aria-describedby={form.formState.errors.name ? "name-error" : undefined}
+          aria-describedby={form.formState.errors.name ? "name-error" : (state.errors?.name ? "name-server-error" : undefined)}
         />
         {form.formState.errors.name && (
           <p id="name-error" className="text-sm text-destructive mt-1">{form.formState.errors.name.message}</p>
         )}
         {state.errors?.name && !form.formState.errors.name && (
-           <p className="text-sm text-destructive mt-1">{state.errors.name.join(', ')}</p>
+           <p id="name-server-error" className="text-sm text-destructive mt-1">{state.errors.name.join(', ')}</p>
         )}
       </div>
 
@@ -134,13 +131,13 @@ export function ContactFormComponent() {
           {...form.register("email")}
           className={cn(form.formState.errors.email && "border-destructive focus-visible:ring-destructive")}
           aria-invalid={!!form.formState.errors.email}
-          aria-describedby={form.formState.errors.email ? "email-error" : undefined}
+          aria-describedby={form.formState.errors.email ? "email-error" : (state.errors?.email ? "email-server-error" : undefined)}
         />
         {form.formState.errors.email && (
           <p id="email-error" className="text-sm text-destructive mt-1">{form.formState.errors.email.message}</p>
         )}
          {state.errors?.email && !form.formState.errors.email && (
-           <p className="text-sm text-destructive mt-1">{state.errors.email.join(', ')}</p>
+           <p id="email-server-error" className="text-sm text-destructive mt-1">{state.errors.email.join(', ')}</p>
         )}
       </div>
 
@@ -159,7 +156,11 @@ export function ContactFormComponent() {
 
       <div>
         <Label htmlFor="course">Course of Interest (Optional)</Label>
-        <Select name="course" onValueChange={(value) => form.setValue('course', value === 'not-specified' ? '' : value)} defaultValue={form.getValues("course") || undefined}>
+        <Select
+          name="course"
+          onValueChange={(value) => form.setValue('course', value === 'not-specified' ? '' : value)}
+          defaultValue={form.getValues("course") || undefined}
+        >
           <SelectTrigger id="course" aria-describedby={state.errors?.course ? "course-server-error" : undefined}>
             <SelectValue placeholder="Select a course" />
           </SelectTrigger>
@@ -184,13 +185,13 @@ export function ContactFormComponent() {
           {...form.register("message")}
           className={cn(form.formState.errors.message && "border-destructive focus-visible:ring-destructive")}
           aria-invalid={!!form.formState.errors.message}
-          aria-describedby={form.formState.errors.message ? "message-error" : undefined}
+          aria-describedby={form.formState.errors.message ? "message-error" : (state.errors?.message ? "message-server-error" : undefined)}
         />
         {form.formState.errors.message && (
           <p id="message-error" className="text-sm text-destructive mt-1">{form.formState.errors.message.message}</p>
         )}
         {state.errors?.message && !form.formState.errors.message && (
-           <p className="text-sm text-destructive mt-1">{state.errors.message.join(', ')}</p>
+           <p id="message-server-error" className="text-sm text-destructive mt-1">{state.errors.message.join(', ')}</p>
         )}
       </div>
       
