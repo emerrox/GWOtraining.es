@@ -8,20 +8,18 @@ interface CourseCardProps {
   level: string;
   description: string;
   imageUrl: string;
-  imageHint: string;
 }
 
-export function CourseCard({ title, level, description, imageUrl, imageHint }: CourseCardProps) {
+export function CourseCard({ title, level, description, imageUrl }: CourseCardProps) {
   return (
     <Card className="flex flex-col overflow-hidden h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader className="p-0">
         <div className="relative w-full h-48">
           <Image
-            src={imageUrl}
+            src={imageUrl} // Esta URL vendrá de CoursesSection
             alt={title}
             layout="fill"
             objectFit="cover"
-            data-ai-hint={imageHint}
           />
         </div>
       </CardHeader>

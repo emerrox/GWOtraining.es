@@ -7,28 +7,25 @@ const testimonials = [
     name: 'Juan D.',
     level: 'Certificado GWO',
     comment: 'gwotraining.es proporcionó una formación GWO de primera categoría. Los instructores estaban muy bien informados y las instalaciones eran excelentes. ¡Muy recomendable!',
-    avatarSrc: 'https://placehold.co/100x100.png',
+    avatarSrc: '/images/testimonial-juan-d.jpg', // Actualiza este nombre de archivo
     avatarFallback: 'JD',
     rating: 5,
-    imageHint: 'person portrait',
   },
   {
     name: 'Sara L.',
     level: 'Módulos GWO BST',
     comment: 'Como recién llegada a la industria eólica, me sentí totalmente apoyada. La Formación Básica en Seguridad de GWO fue desafiante pero gratificante. Me siento segura para comenzar mi carrera en la energía eólica.',
-    avatarSrc: 'https://placehold.co/100x100.png',
+    avatarSrc: '/images/testimonial-sara-l.jpg', // Actualiza este nombre de archivo
     avatarFallback: 'SL',
     rating: 5,
-    imageHint: 'person smiling',
   },
    {
     name: 'Miguel P.',
     level: 'Certificado GWO ART',
     comment: 'La Formación Avanzada en Rescate de GWO llevó mis habilidades más allá. Gran enfoque en la seguridad y escenarios de rescate complejos. ¡Gracias al equipo!',
-    avatarSrc: 'https://placehold.co/100x100.png',
+    avatarSrc: '/images/testimonial-miguel-p.jpg', // Actualiza este nombre de archivo
     avatarFallback: 'MP',
     rating: 4,
-    imageHint: 'technician face',
   },
 ];
 
@@ -49,7 +46,7 @@ export function TestimonialsSection() {
             <Card key={testimonial.name} className="flex flex-col shadow-lg">
               <CardHeader className="flex flex-row items-center gap-4 pb-2">
                  <Avatar className="h-12 w-12">
-                  <AvatarImage src={testimonial.avatarSrc} alt={testimonial.name} data-ai-hint={testimonial.imageHint} />
+                  <AvatarImage src={testimonial.avatarSrc} alt={testimonial.name} />
                   <AvatarFallback>{testimonial.avatarFallback}</AvatarFallback>
                 </Avatar>
                 <div>

@@ -1,5 +1,4 @@
-
-"use client"; // Add this directive
+"use client"; 
 
 import dynamic from 'next/dynamic';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +10,7 @@ const DynamicContactFormComponent = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="space-y-6 p-1"> {/* Added p-1 to prevent skeleton from touching card edge */}
+      <div className="space-y-6 p-1">
         <div className="space-y-2">
           <Skeleton className="h-4 w-1/3" />
           <Skeleton className="h-10 w-full" />
@@ -57,12 +56,11 @@ export function ContactFormSection() {
           </Card>
           <div className="hidden lg:block relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
              <Image
-                src="https://placehold.co/600x450.png"
+                src="/images/contact-customer-service.jpg" // Actualiza este nombre de archivo
                 alt="Persona de contacto para cursos GWO"
                 layout="fill"
                 objectFit="cover"
                 className="rounded-lg"
-                data-ai-hint="customer service"
               />
           </div>
         </div>

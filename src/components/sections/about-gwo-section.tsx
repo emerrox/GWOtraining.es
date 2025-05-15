@@ -18,12 +18,11 @@ export function AboutGwoSection() {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <Image
-              src="https://placehold.co/600x400.png"
+              src="/images/about-wind-turbine-safety.jpg" // Actualiza este nombre de archivo
               alt="Equipamiento de seguridad para formación GWO"
               width={600}
               height={400}
               className="rounded-lg shadow-lg object-cover"
-              data-ai-hint="wind turbine safety"
             />
           </div>
           <div className="space-y-6">
