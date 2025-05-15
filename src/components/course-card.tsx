@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,18 +9,20 @@ interface CourseCardProps {
   level: string;
   description: string;
   imageUrl: string;
+  'data-ai-hint'?: string; // Hacer opcional el data-ai-hint
 }
 
-export function CourseCard({ title, level, description, imageUrl }: CourseCardProps) {
+export function CourseCard({ title, level, description, imageUrl, 'data-ai-hint': dataAiHint }: CourseCardProps) {
   return (
     <Card className="flex flex-col overflow-hidden h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader className="p-0">
         <div className="relative w-full h-48">
           <Image
-            src={imageUrl} // Esta URL vendrá de CoursesSection
+            src={imageUrl}
             alt={title}
             layout="fill"
             objectFit="cover"
+            {...(dataAiHint ? { 'data-ai-hint': dataAiHint } : {})}
           />
         </div>
       </CardHeader>
