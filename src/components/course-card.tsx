@@ -15,40 +15,111 @@ interface CourseCardProps {
 export function CourseCard({ title, level, description, icon: Icon }: CourseCardProps) {
   
   const renderDescription = (descriptionString: string) => {
-    const segments = [];
-    let lastIndex = 0;
-    const regex = /(Módulos:|Cursos:)/gi; // g para global, i para case-insensitive
+    if (!descriptionString) return null;
+
+    const parts = [];
+    let currentIndex = 0;
+    const labelRegex = /(Módulos:|Cursos:|Duración:)/gi;
     let match;
 
-    while ((match = regex.exec(descriptionString)) !== null) {
-      // Texto antes de la etiqueta
-      if (match.index > lastIndex) {
-        segments.push({ type: 'text', content: descriptionString.substring(lastIndex, match.index) });
+    while ((match = labelRegex.exec(descriptionString)) !== null) {
+      // Text before the current label
+      if (match.index > currentIndex) {
+        const textBefore = descriptionString.substring(currentIndex, match.index);
+        if (textBefore.trim()) {
+          parts.push({ type: 'text', content: textBefore });
+        }
       }
-      // La etiqueta
-      // Capitalizar la primera letra de la etiqueta para consistencia visual
-      const labelContent = match[0].charAt(0).toUpperCase() + match[0].slice(1);
-      segments.push({ type: 'label', content: labelContent });
-      lastIndex = regex.lastIndex;
+
+      const labelText = match[0];
+      const labelKey = labelText.toLowerCase().replace(':', '');
+      parts.push({ type: 'label', content: labelText.charAt(0).toUpperCase() + labelText.slice(1) });
+      
+      currentIndex = labelRegex.lastIndex; // End of the matched label
+
+      // Determine the content block for this label
+      let contentBlockEnd = descriptionString.length;
+      // Peek for the next label without advancing the main regex
+      const peekRegex = new RegExp(labelRegex.source, 'gi'); // Create a new regex instance for peeking
+      peekRegex.lastIndex = currentIndex;
+      const nextLabelMatch = peekRegex.exec(descriptionString);
+      if (nextLabelMatch) {
+        contentBlockEnd = nextLabelMatch.index;
+      }
+
+      const contentBlock = descriptionString.substring(currentIndex, contentBlockEnd);
+      currentIndex = contentBlockEnd; // Advance past this content block for the next iteration
+      
+      if ((labelKey === 'modulos' || labelKey === 'cursos') && contentBlock.trim()) {
+        const trimmedContentBlock = contentBlock.trim();
+        let items;
+
+        if (trimmedContentBlock.includes('\n')) {
+          items = trimmedContentBlock.split('\n');
+        } else if (trimmedContentBlock.includes(';')) {
+          items = trimmedContentBlock.split(';');
+        } else if (trimmedContentBlock.includes(',')) {
+          items = trimmedContentBlock.split(',');
+        } else if (trimmedContentBlock) {
+          items = [trimmedContentBlock]; // Single item
+        } else {
+          items = [];
+        }
+        
+        const cleanedItems = items
+          .map(item =>
+            item
+              .replace(/^[-\s•●▪▫■]\s*/, '') // Remove common list markers like "-", "•", etc.
+              .replace(/\.$/, '') // Remove trailing period
+              .replace(/\s*\([\d,.]+\s*h(?:oras?)?\)?\s*$/i, '') // Remove (Xh) or (X horas) at the end
+              .trim()
+          )
+          .filter(item => item); // Filter out empty items after cleaning
+
+        if (cleanedItems.length > 0) {
+          parts.push({ type: 'list', items: cleanedItems });
+        } else if (contentBlock.trim()) { 
+          parts.push({ type: 'text', content: contentBlock });
+        }
+      } else if (contentBlock.trim()) { 
+        parts.push({ type: 'text', content: contentBlock });
+      }
     }
 
-    // Texto después de la última etiqueta (o toda la cadena si no hay etiquetas)
-    if (lastIndex < descriptionString.length) {
-      segments.push({ type: 'text', content: descriptionString.substring(lastIndex) });
+    // Remaining text after all labels
+    if (currentIndex < descriptionString.length) {
+      const remainingText = descriptionString.substring(currentIndex);
+      if (remainingText.trim()) {
+        parts.push({ type: 'text', content: remainingText });
+      }
     }
     
-    // Si no hay etiquetas, devolver la descripción original para un renderizado simple
-    if (segments.length === 0 || (segments.length === 1 && segments[0].type === 'text')) {
-      return descriptionString;
+    if (parts.length === 0 && descriptionString.trim()) {
+       return descriptionString;
     }
+    if (parts.length === 0) return null;
 
-    return segments.map((segment, index) => {
-      if (segment.type === 'label') {
-        return <h4 key={index} className="text-md font-semibold mt-3 mb-1 text-primary">{segment.content}</h4>;
+    return parts.map((part, index) => {
+      if (part.type === 'label') {
+        return <h4 key={`label-${index}`} className="text-md font-semibold mt-3 mb-1 text-primary">{part.content}</h4>;
       }
-      // Devolver el contenido de texto directamente. React lo manejará.
-      // Los saltos de línea y espacios serán manejados por whitespace-pre-line en el div/p padre.
-      return segment.content; 
+      if (part.type === 'list') {
+        return (
+          <div key={`list-${index}`} className="mt-1 mb-2 space-y-1">
+            {part.items.map((item, itemIndex) => (
+              <div
+                key={`item-${index}-${itemIndex}`}
+                className="bg-secondary/20 text-secondary-foreground p-2 rounded-md text-sm shadow-sm border border-border"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        );
+      }
+      // part.type === 'text'
+      const trimmedPartContent = part.content.trim();
+      return trimmedPartContent ? <React.Fragment key={`text-${index}`}>{trimmedPartContent}</React.Fragment> : null;
     });
   };
 
