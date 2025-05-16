@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useEffect, startTransition } from 'react';
-import { useActionState, useFormStatus } from 'react-dom';
+import { useEffect, startTransition, useActionState } from 'react'; // useActionState from 'react'
+import { useFormStatus } from 'react-dom'; // useFormStatus from 'react-dom'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -106,7 +106,6 @@ export function ContactFormComponent() {
 
   return (
     <form
-      action={formAction}
       className="space-y-6"
       onSubmit={form.handleSubmit(handleFormSubmit)}
     >
