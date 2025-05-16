@@ -9,7 +9,7 @@ interface CourseCardProps {
   level: string;
   description: string;
   imageUrl: string;
-  'data-ai-hint'?: string; // Hacer opcional el data-ai-hint
+  'data-ai-hint'?: string;
 }
 
 export function CourseCard({ title, level, description, imageUrl, 'data-ai-hint': dataAiHint }: CourseCardProps) {
@@ -22,12 +22,12 @@ export function CourseCard({ title, level, description, imageUrl, 'data-ai-hint'
             alt={title}
             layout="fill"
             objectFit="cover"
-            {...(dataAiHint ? { 'data-ai-hint': dataAiHint } : {})}
+            data-ai-hint={dataAiHint}
           />
         </div>
       </CardHeader>
       <CardContent className="p-6 flex-grow">
-        <CardTitle className="text-2xl font-semibold text-primary mb-2">{title}</CardTitle>
+        <CardTitle className="text-xl font-semibold text-primary mb-2">{title}</CardTitle>
         <CardDescription className="text-sm text-accent font-medium mb-2">{level}</CardDescription>
         <p className="text-foreground/80 text-base">
           {description}

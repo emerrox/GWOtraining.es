@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useEffect, startTransition, useActionState } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useEffect, startTransition } from 'react';
+import { useActionState, useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -166,13 +166,17 @@ export function ContactFormComponent() {
           defaultValue={form.getValues("course") || undefined}
         >
           <SelectTrigger id="course" aria-describedby={state.errors?.course ? "course-server-error" : undefined}>
-            <SelectValue placeholder="Selecciona un módulo GWO" />
+            <SelectValue placeholder="Selecciona un curso GWO" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="GWO Formacion Basica en Seguridad (BST)">GWO Formación Básica en Seguridad (BST)</SelectItem>
-            <SelectItem value="GWO Formacion Tecnica Basica (BTT)">GWO Formación Técnica Básica (BTT)</SelectItem>
-            <SelectItem value="GWO Formacion Avanzada en Rescate (ART)">GWO Formación Avanzada en Rescate (ART)</SelectItem>
-            <SelectItem value="GWO Primeros Auxilios Avanzados (EFA)">GWO Primeros Auxilios Avanzados (EFA)</SelectItem>
+            <SelectItem value="Basic Technical Training">Basic Technical Training (BTT)</SelectItem>
+            <SelectItem value="Advanced Rescue Training">Advanced Rescue Training (ART)</SelectItem>
+            <SelectItem value="Blade Repair">Blade Repair</SelectItem>
+            <SelectItem value="Enhanced First Aid">Enhanced First Aid</SelectItem>
+            <SelectItem value="Control of Hazardous Energies">Control of Hazardous Energies (LOTO)</SelectItem>
+            <SelectItem value="Slinger Signaller">Slinger Signaller</SelectItem>
+            <SelectItem value="Wind Limited Access">Wind Limited Access</SelectItem>
+            <SelectItem value="Instructor Qualification Training">Instructor Qualification Training (IQT)</SelectItem>
             <SelectItem value="Otra Consulta">Otra Consulta</SelectItem>
             <SelectItem value="not-specified">Ninguno / No Especificado</SelectItem>
           </SelectContent>
