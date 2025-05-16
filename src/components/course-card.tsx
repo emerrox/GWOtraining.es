@@ -19,11 +19,11 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
 
     const parts = [];
     let currentIndex = 0;
+    // Regex to find labels, now including "Curso:"
     const labelRegex = /(Módulos:|Cursos:|Curso:|Duración:)/gi; 
     let match;
 
     while ((match = labelRegex.exec(descriptionString)) !== null) {
-      // Text before the current label
       if (match.index > currentIndex) {
         const textBefore = descriptionString.substring(currentIndex, match.index);
         if (textBefore.trim()) {
@@ -34,7 +34,6 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
       const labelText = match[0];
       const labelKey = labelText.toLowerCase().replace(':', '');
       
-      // Determine the content block for this label
       let contentBlockStartIndex = labelRegex.lastIndex; 
       let contentBlockEnd = descriptionString.length;
       
@@ -54,8 +53,7 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
         continue; 
       }
       
-      parts.push({ type: 'label', content: labelText.charAt(0).toUpperCase() + labelText.slice(1) });
-      
+      // For "Módulos", "Cursos", "Curso" - only push content if it exists
       if ((labelKey === 'módulos' || labelKey === 'cursos' || labelKey === 'curso') && contentBlock) { 
         let items;
         if (contentBlock.includes('\n')) {
@@ -79,16 +77,21 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
           .filter(item => item); 
 
         if (cleanedItems.length > 0) {
+          // Don't push the label itself, only the list items
           parts.push({ type: 'list', items: cleanedItems });
         } else if (contentBlock) { 
-          parts.push({ type: 'text', content: contentBlock });
+          // If no list items after cleaning but there was content, push as text
+           parts.push({ type: 'text', content: contentBlock });
         }
-      } else if (contentBlock) { 
-        parts.push({ type: 'text', content: contentBlock });
+      } else if (labelKey !== 'módulos' && labelKey !== 'cursos' && labelKey !== 'curso') {
+        // For other labels (if any were to be introduced and NOT skipped like "Duración")
+        parts.push({ type: 'label', content: labelText.charAt(0).toUpperCase() + labelText.slice(1) });
+        if (contentBlock) {
+             parts.push({ type: 'text', content: contentBlock });
+        }
       }
     }
 
-    // Remaining text after all labels (if any, and if it's not part of a skipped duration)
     if (currentIndex < descriptionString.length) {
       const remainingText = descriptionString.substring(currentIndex).trim();
       if (remainingText) {
@@ -97,22 +100,22 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
     }
     
     if (parts.length === 0 && descriptionString.trim()) {
-       return descriptionString;
+       return descriptionString; // Fallback if no labels are found
     }
     if (parts.length === 0) return null;
 
     return parts.map((part, index) => {
       if (part.type === 'label') {
+        // Labels "Módulos", "Cursos", "Curso" are not rendered here.
+        // Only other labels would be (currently none, as "Duración" is skipped).
         const lowerCaseContent = part.content.toLowerCase();
         if (
             lowerCaseContent.startsWith('módulos') ||
             lowerCaseContent.startsWith('cursos') ||
             lowerCaseContent.startsWith('curso')
         ) {
-            return null; // Hide these specific labels
+            return null; 
         }
-        // For any other label (if any were to be introduced), render it
-        // Note: "Duración" is already skipped during parsing
         return <h4 key={`label-${index}`} className="text-md font-semibold mt-3 mb-1 text-primary">{part.content}</h4>;
       }
       if (part.type === 'list') {
@@ -135,8 +138,8 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
   };
 
   return (
-    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out">
-      <CardHeader className="p-6 flex flex-col items-center justify-center h-40 bg-secondary/20">
+    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out overflow-hidden">
+      <CardHeader className="py-6 flex flex-col items-center justify-center bg-secondary/20">
         <Icon className="h-16 w-16 text-primary" aria-hidden="true" />
       </CardHeader>
       <CardContent className="p-6 flex flex-col flex-grow">
@@ -146,7 +149,7 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
           {renderDescription(description)}
         </div>
       </CardContent>
-      <CardFooter className="p-6 pt-4 mt-auto">
+      <CardFooter className="p-6 mt-auto">
         <Button asChild className="w-full bg-primary hover:bg-primary/80 text-primary-foreground">
           <Link href="#contact">Saber Más e Inscribirse</Link>
         </Button>
