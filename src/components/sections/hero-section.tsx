@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,7 @@ export function HeroSection() {
           layout="fill"
           objectFit="cover"
           quality={80}
-          className="opacity-30" // Aumentada la opacidad
+          className="opacity-40" // Opacidad aumentada
         />
          <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background"></div>
       </div>
