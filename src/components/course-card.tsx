@@ -19,7 +19,7 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
 
     const parts = [];
     let currentIndex = 0;
-    const labelRegex = /(Módulos:|Cursos:|Duración:)/gi;
+    const labelRegex = /(Módulos:|Cursos:|Curso:|Duración:)/gi; // Added "Curso:"
     let match;
 
     while ((match = labelRegex.exec(descriptionString)) !== null) {
@@ -27,69 +27,72 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
       if (match.index > currentIndex) {
         const textBefore = descriptionString.substring(currentIndex, match.index);
         if (textBefore.trim()) {
-          parts.push({ type: 'text', content: textBefore });
+          parts.push({ type: 'text', content: textBefore.trim() });
         }
       }
 
       const labelText = match[0];
       const labelKey = labelText.toLowerCase().replace(':', '');
-      parts.push({ type: 'label', content: labelText.charAt(0).toUpperCase() + labelText.slice(1) });
       
-      currentIndex = labelRegex.lastIndex; // End of the matched label
-
       // Determine the content block for this label
+      let contentBlockStartIndex = labelRegex.lastIndex; // Start of content for this label
       let contentBlockEnd = descriptionString.length;
+      
       // Peek for the next label without advancing the main regex
-      const peekRegex = new RegExp(labelRegex.source, 'gi'); // Create a new regex instance for peeking
-      peekRegex.lastIndex = currentIndex;
+      const peekRegex = new RegExp(labelRegex.source, 'gi');
+      peekRegex.lastIndex = contentBlockStartIndex;
       const nextLabelMatch = peekRegex.exec(descriptionString);
       if (nextLabelMatch) {
         contentBlockEnd = nextLabelMatch.index;
       }
-
-      const contentBlock = descriptionString.substring(currentIndex, contentBlockEnd);
-      currentIndex = contentBlockEnd; // Advance past this content block for the next iteration
       
-      if ((labelKey === 'módulos' || labelKey === 'cursos') && contentBlock.trim()) { // Corrected 'modulos' to 'módulos'
-        const trimmedContentBlock = contentBlock.trim();
-        let items;
+      const contentBlock = descriptionString.substring(contentBlockStartIndex, contentBlockEnd).trim();
+      currentIndex = contentBlockEnd; // Advance currentIndex past this content block for the next iteration in the main loop
+      labelRegex.lastIndex = currentIndex; // Crucial: Update lastIndex for the main regex
 
-        if (trimmedContentBlock.includes('\n')) {
-          items = trimmedContentBlock.split('\n');
-        } else if (trimmedContentBlock.includes(';')) {
-          items = trimmedContentBlock.split(';');
-        } else if (trimmedContentBlock.includes(',')) {
-          items = trimmedContentBlock.split(',');
-        } else if (trimmedContentBlock) {
-          items = [trimmedContentBlock]; // Single item
+      // Skip "Duración:"
+      if (labelKey === 'duración') {
+        continue; 
+      }
+      
+      parts.push({ type: 'label', content: labelText.charAt(0).toUpperCase() + labelText.slice(1) });
+      
+      if ((labelKey === 'módulos' || labelKey === 'cursos' || labelKey === 'curso') && contentBlock) { // Added 'curso'
+        let items;
+        if (contentBlock.includes('\n')) {
+          items = contentBlock.split('\n');
+        } else if (contentBlock.includes(';')) {
+          items = contentBlock.split(';');
+        } else if (contentBlock.includes(',')) {
+          items = contentBlock.split(',');
         } else {
-          items = [];
+          items = [contentBlock]; // Single item
         }
         
         const cleanedItems = items
           .map(item =>
             item
-              .replace(/^[-\s•●▪▫■]\s*/, '') // Remove common list markers like "-", "•", etc.
+              .replace(/^[-\s•●▪▫■]\s*/, '') // Remove common list markers
               .replace(/\.$/, '') // Remove trailing period
               .replace(/\s*\([\d,.]+\s*h(?:oras?)?\)?\s*$/i, '') // Remove (Xh) or (X horas) at the end
               .trim()
           )
-          .filter(item => item); // Filter out empty items after cleaning
+          .filter(item => item); // Filter out empty items
 
         if (cleanedItems.length > 0) {
           parts.push({ type: 'list', items: cleanedItems });
-        } else if (contentBlock.trim()) { 
+        } else if (contentBlock) { 
           parts.push({ type: 'text', content: contentBlock });
         }
-      } else if (contentBlock.trim()) { 
+      } else if (contentBlock) { 
         parts.push({ type: 'text', content: contentBlock });
       }
     }
 
-    // Remaining text after all labels
+    // Remaining text after all labels (if any, and if it's not part of a skipped duration)
     if (currentIndex < descriptionString.length) {
-      const remainingText = descriptionString.substring(currentIndex);
-      if (remainingText.trim()) {
+      const remainingText = descriptionString.substring(currentIndex).trim();
+      if (remainingText) {
         parts.push({ type: 'text', content: remainingText });
       }
     }
@@ -105,11 +108,11 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
       }
       if (part.type === 'list') {
         return (
-          <div key={`list-${index}`} className="mt-1 mb-2 flex flex-wrap gap-1"> {/* Changed container for list items */}
+          <div key={`list-${index}`} className="mt-1 mb-2 flex flex-wrap gap-1">
             {part.items.map((item, itemIndex) => (
               <div
                 key={`item-${index}-${itemIndex}`}
-                className="bg-secondary/30 text-secondary-foreground px-2 py-1 rounded-md text-xs shadow-sm border border-border/70" /* Styled individual list items */
+                className="bg-secondary/30 text-secondary-foreground px-2 py-1 rounded-md text-xs shadow-sm border border-border/70"
               >
                 {item}
               </div>
@@ -118,13 +121,12 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
         );
       }
       // part.type === 'text'
-      const trimmedPartContent = part.content.trim();
-      return trimmedPartContent ? <React.Fragment key={`text-${index}`}>{trimmedPartContent}</React.Fragment> : null;
+      return part.content ? <React.Fragment key={`text-${index}`}>{part.content}</React.Fragment> : null;
     });
   };
 
   return (
-    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.02]">
+    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out">
       <CardHeader className="p-6 flex flex-col items-center justify-center h-40 bg-secondary/20">
         <Icon className="h-16 w-16 text-primary" aria-hidden="true" />
       </CardHeader>
