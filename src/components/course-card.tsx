@@ -19,7 +19,7 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
 
     const parts = [];
     let currentIndex = 0;
-    const labelRegex = /(Módulos:|Cursos:|Curso:|Duración:)/gi; // Added "Curso:"
+    const labelRegex = /(Módulos:|Cursos:|Curso:|Duración:)/gi; 
     let match;
 
     while ((match = labelRegex.exec(descriptionString)) !== null) {
@@ -35,10 +35,9 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
       const labelKey = labelText.toLowerCase().replace(':', '');
       
       // Determine the content block for this label
-      let contentBlockStartIndex = labelRegex.lastIndex; // Start of content for this label
+      let contentBlockStartIndex = labelRegex.lastIndex; 
       let contentBlockEnd = descriptionString.length;
       
-      // Peek for the next label without advancing the main regex
       const peekRegex = new RegExp(labelRegex.source, 'gi');
       peekRegex.lastIndex = contentBlockStartIndex;
       const nextLabelMatch = peekRegex.exec(descriptionString);
@@ -47,17 +46,17 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
       }
       
       const contentBlock = descriptionString.substring(contentBlockStartIndex, contentBlockEnd).trim();
-      currentIndex = contentBlockEnd; // Advance currentIndex past this content block for the next iteration in the main loop
-      labelRegex.lastIndex = currentIndex; // Crucial: Update lastIndex for the main regex
+      currentIndex = contentBlockEnd; 
+      labelRegex.lastIndex = currentIndex; 
 
-      // Skip "Duración:"
+      // Skip "Duración:" entirely (label and content)
       if (labelKey === 'duración') {
         continue; 
       }
       
       parts.push({ type: 'label', content: labelText.charAt(0).toUpperCase() + labelText.slice(1) });
       
-      if ((labelKey === 'módulos' || labelKey === 'cursos' || labelKey === 'curso') && contentBlock) { // Added 'curso'
+      if ((labelKey === 'módulos' || labelKey === 'cursos' || labelKey === 'curso') && contentBlock) { 
         let items;
         if (contentBlock.includes('\n')) {
           items = contentBlock.split('\n');
@@ -66,18 +65,18 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
         } else if (contentBlock.includes(',')) {
           items = contentBlock.split(',');
         } else {
-          items = [contentBlock]; // Single item
+          items = [contentBlock]; 
         }
         
         const cleanedItems = items
           .map(item =>
             item
-              .replace(/^[-\s•●▪▫■]\s*/, '') // Remove common list markers
-              .replace(/\.$/, '') // Remove trailing period
-              .replace(/\s*\([\d,.]+\s*h(?:oras?)?\)?\s*$/i, '') // Remove (Xh) or (X horas) at the end
+              .replace(/^[-\s•●▪▫■]\s*/, '') 
+              .replace(/\.$/, '') 
+              .replace(/\s*\([\d,.]+\s*h(?:oras?)?\)?\s*$/i, '') 
               .trim()
           )
-          .filter(item => item); // Filter out empty items
+          .filter(item => item); 
 
         if (cleanedItems.length > 0) {
           parts.push({ type: 'list', items: cleanedItems });
@@ -104,6 +103,16 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
 
     return parts.map((part, index) => {
       if (part.type === 'label') {
+        const lowerCaseContent = part.content.toLowerCase();
+        if (
+            lowerCaseContent.startsWith('módulos') ||
+            lowerCaseContent.startsWith('cursos') ||
+            lowerCaseContent.startsWith('curso')
+        ) {
+            return null; // Hide these specific labels
+        }
+        // For any other label (if any were to be introduced), render it
+        // Note: "Duración" is already skipped during parsing
         return <h4 key={`label-${index}`} className="text-md font-semibold mt-3 mb-1 text-primary">{part.content}</h4>;
       }
       if (part.type === 'list') {
