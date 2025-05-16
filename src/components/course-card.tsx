@@ -50,7 +50,7 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
       const contentBlock = descriptionString.substring(currentIndex, contentBlockEnd);
       currentIndex = contentBlockEnd; // Advance past this content block for the next iteration
       
-      if ((labelKey === 'modulos' || labelKey === 'cursos') && contentBlock.trim()) {
+      if ((labelKey === 'módulos' || labelKey === 'cursos') && contentBlock.trim()) { // Corrected 'modulos' to 'módulos'
         const trimmedContentBlock = contentBlock.trim();
         let items;
 
