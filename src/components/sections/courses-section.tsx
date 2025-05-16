@@ -1,62 +1,64 @@
 
 import { CourseCard } from '@/components/course-card';
+import { 
+  Wrench, 
+  LifeBuoy, 
+  Wind, 
+  HeartPulse, 
+  Lock, 
+  Anchor, 
+  TowerControl, 
+  GraduationCap 
+} from 'lucide-react';
 
 const courses = [
   {
     title: 'Basic Technical Training',
     level: 'Formación técnica básica',
     description: 'Módulos: Especialidades BTT Hidráulica (8h), BTT Electricidad (9h), BTT Mecánica (13,5h), BTT Instalación (18h). Duración: MEH 30,5 horas / MI 29 horas',
-    imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'electrical panel',
+    icon: Wrench,
   },
   {
     title: 'Advanced Rescue Training',
     level: 'Formación de rescate avanzado',
     description: 'Cursos: Rescate Buje, Rotor, Interior pala (1); Rescate Nacelle, Torre, Sótano (2); Rescate Industrial (1); Rescate Industrial (2); Rescate Nacelle Refresh. Posibilidad de ART Combinado con los cuatro módulos. Duración: ART Combinado 21 horas',
-    imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'nacelle blades',
+    icon: LifeBuoy,
   },
   {
     title: 'Blade Repair',
     level: 'Reparación de palas de aerogenerador',
     description: 'Cursos: Reparación Palas GWO, Blade Repair Siemens Gamesa. Duración: 70 horas. Nuevo requisito indispensable para trabajar en la reparación de palas en el sector eólico mundial.',
-    imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'nacelle technicians',
+    icon: Wind,
   },
   {
     title: 'Enhanced First Aid',
     level: 'Primeros auxilios avanzados',
     description: 'Cursos: BST Primeos Auxilios y Primeros Auxilios Avanzados. BST Primeros Auxilios Refresh y Primeros Auxilios Avanzados Refresh. Duración: 20 horas',
-    imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'cpr training',
+    icon: HeartPulse,
   },
   {
     title: 'Control of Hazardous Energies',
     level: 'Control de Energías Peligrosas',
     description: 'Módulos: Módulo de Seguridad Básica, Módulo de Seguridad Eléctrica y Módulo de Seguridad de Fluidos a Presión. Duración total: 22 horas',
-    imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'electrical hazard',
+    icon: Lock,
   },
   {
     title: 'Slinger Signaller',
     level: 'Señalización y elevación de cargas',
     description: 'Curso: Señalización y elevación de cargas + Polipastos. Duración: 14 horas',
-    imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'crane nacelle',
+    icon: Anchor,
   },
   {
     title: 'Wind Limited Access',
     level: 'Acceso Restringido en Aerogeneradores',
     description: 'Cursos: Acceso Restringido en Tierra y Acceso Restringido en Alta Mar. Duración: 7 horas',
-    imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'nacelle turbine',
+    icon: TowerControl,
   },
   {
     title: 'Instructor Qualification Training',
     level: 'Formación para la Cualificación de Instructores',
     description: 'Cursos: Formación para la Cualificación de Instructores (IQT), Formación Transversal para la Cualificación de Instructores (IQTX). Duración: 72 horas',
-    imageUrl: 'https://placehold.co/400x300.png',
-    imageHint: 'instructor training',
+    icon: GraduationCap,
   }
 ];
 
@@ -79,8 +81,7 @@ export function CoursesSection() {
               title={course.title}
               level={course.level}
               description={course.description}
-              imageUrl={course.imageUrl}
-              data-ai-hint={course.imageHint}
+              icon={course.icon}
             />
           ))}
         </div>
