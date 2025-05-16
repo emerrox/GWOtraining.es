@@ -105,11 +105,11 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
       }
       if (part.type === 'list') {
         return (
-          <div key={`list-${index}`} className="mt-1 mb-2 space-y-1">
+          <div key={`list-${index}`} className="mt-1 mb-2 flex flex-wrap gap-1"> {/* Changed container for list items */}
             {part.items.map((item, itemIndex) => (
               <div
                 key={`item-${index}-${itemIndex}`}
-                className="bg-secondary/20 text-secondary-foreground p-2 rounded-md text-sm shadow-sm border border-border"
+                className="bg-secondary/30 text-secondary-foreground px-2 py-1 rounded-md text-xs shadow-sm border border-border/70" /* Styled individual list items */
               >
                 {item}
               </div>
@@ -124,7 +124,7 @@ export function CourseCard({ title, level, description, icon: Icon }: CourseCard
   };
 
   return (
-    <Card className="flex flex-col h-full shadow-lg">
+    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.02]">
       <CardHeader className="p-6 flex flex-col items-center justify-center h-40 bg-secondary/20">
         <Icon className="h-16 w-16 text-primary" aria-hidden="true" />
       </CardHeader>
