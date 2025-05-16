@@ -1,33 +1,31 @@
+
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Star } from 'lucide-react';
+import { Star, User } from 'lucide-react'; // Imported User icon
 
 const testimonials = [
   {
     name: 'Juan D.',
     level: 'Certificado GWO',
     comment: 'gwotraining.es proporcionó una formación GWO de primera categoría. Los instructores estaban muy bien informados y las instalaciones eran excelentes. ¡Muy recomendable!',
-    avatarSrc: 'https://placehold.co/100x100.png',
-    avatarFallback: 'JD',
-    dataAiHint: 'person portrait',
+    // avatarSrc: 'https://placehold.co/100x100.png', // Removed
+    // avatarFallback: 'JD', // Original fallback, will be replaced by icon
     rating: 5,
   },
   {
     name: 'Sara L.',
     level: 'Módulos GWO BST',
     comment: 'Como recién llegada a la industria eólica, me sentí totalmente apoyada. La Formación Básica en Seguridad de GWO fue desafiante pero gratificante. Me siento segura para comenzar mi carrera en la energía eólica.',
-    avatarSrc: 'https://placehold.co/100x100.png',
-    avatarFallback: 'SL',
-    dataAiHint: 'person smiling',
+    // avatarSrc: 'https://placehold.co/100x100.png', // Removed
+    // avatarFallback: 'SL', // Original fallback, will be replaced by icon
     rating: 5,
   },
    {
     name: 'Miguel P.',
     level: 'Certificado GWO ART',
     comment: 'La Formación Avanzada en Rescate de GWO llevó mis habilidades más allá. Gran enfoque en la seguridad y escenarios de rescate complejos. ¡Gracias al equipo!',
-    avatarSrc: 'https://placehold.co/100x100.png',
-    avatarFallback: 'MP',
-    dataAiHint: 'technician face',
+    // avatarSrc: 'https://placehold.co/100x100.png', // Removed
+    // avatarFallback: 'MP', // Original fallback, will be replaced by icon
     rating: 4,
   },
 ];
@@ -49,12 +47,11 @@ export function TestimonialsSection() {
             <Card key={testimonial.name} className="flex flex-col shadow-lg">
               <CardHeader className="flex flex-row items-center gap-4 pb-2">
                  <Avatar className="h-12 w-12">
-                  <AvatarImage 
-                    src={testimonial.avatarSrc} 
-                    alt={testimonial.name} 
-                    data-ai-hint={testimonial.dataAiHint}
-                  />
-                  <AvatarFallback>{testimonial.avatarFallback}</AvatarFallback>
+                  {/* AvatarImage will not render if src is undefined */}
+                  <AvatarImage src={undefined} alt={testimonial.name} />
+                  <AvatarFallback>
+                    <User className="h-6 w-6 text-muted-foreground" />
+                  </AvatarFallback>
                 </Avatar>
                 <div>
                   <CardTitle className="text-lg text-foreground">{testimonial.name}</CardTitle>
