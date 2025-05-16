@@ -13,19 +13,19 @@ export function Navbar() {
         </Link>
         <nav className="flex flex-1 items-center space-x-4 sm:space-x-6">
           <Link
-            href="#courses"
+            href="/#courses"
             className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground/80"
           >
             Cursos
           </Link>
           <Link
-            href="#about"
+            href="/#about"
             className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground/80"
           >
             Sobre GWO
           </Link>
           <Link
-            href="#contact"
+            href="/#contact"
             className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground/80"
           >
             Contacto
