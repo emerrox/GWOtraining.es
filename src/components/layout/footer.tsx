@@ -1,10 +1,9 @@
-
 import Link from 'next/link';
 
 export function Footer() {
   return (
     <footer className="border-t py-8 text-center text-sm text-muted-foreground">
-      <div className="container">
+      <div className="container mx-auto"> {/* Added mx-auto */}
         <p>© {new Date().getFullYear()} gwotraining.es. Todos los derechos reservados.</p>
         <p className="mt-1">
           Formación Profesional Certificada GWO en Seguridad.
