@@ -7,24 +7,27 @@ const testimonials = [
     name: 'Juan D.',
     level: 'Certificado GWO',
     comment: 'gwotraining.es proporcionó una formación GWO de primera categoría. Los instructores estaban muy bien informados y las instalaciones eran excelentes. ¡Muy recomendable!',
-    avatarSrc: '/images/testimonial-juan-d.jpg', // Actualiza este nombre de archivo
+    avatarSrc: 'https://placehold.co/100x100.png',
     avatarFallback: 'JD',
+    dataAiHint: 'person portrait',
     rating: 5,
   },
   {
     name: 'Sara L.',
     level: 'Módulos GWO BST',
     comment: 'Como recién llegada a la industria eólica, me sentí totalmente apoyada. La Formación Básica en Seguridad de GWO fue desafiante pero gratificante. Me siento segura para comenzar mi carrera en la energía eólica.',
-    avatarSrc: '/images/testimonial-sara-l.jpg', // Actualiza este nombre de archivo
+    avatarSrc: 'https://placehold.co/100x100.png',
     avatarFallback: 'SL',
+    dataAiHint: 'person smiling',
     rating: 5,
   },
    {
     name: 'Miguel P.',
     level: 'Certificado GWO ART',
     comment: 'La Formación Avanzada en Rescate de GWO llevó mis habilidades más allá. Gran enfoque en la seguridad y escenarios de rescate complejos. ¡Gracias al equipo!',
-    avatarSrc: '/images/testimonial-miguel-p.jpg', // Actualiza este nombre de archivo
+    avatarSrc: 'https://placehold.co/100x100.png',
     avatarFallback: 'MP',
+    dataAiHint: 'technician face',
     rating: 4,
   },
 ];
@@ -46,7 +49,11 @@ export function TestimonialsSection() {
             <Card key={testimonial.name} className="flex flex-col shadow-lg">
               <CardHeader className="flex flex-row items-center gap-4 pb-2">
                  <Avatar className="h-12 w-12">
-                  <AvatarImage src={testimonial.avatarSrc} alt={testimonial.name} />
+                  <AvatarImage 
+                    src={testimonial.avatarSrc} 
+                    alt={testimonial.name} 
+                    data-ai-hint={testimonial.dataAiHint}
+                  />
                   <AvatarFallback>{testimonial.avatarFallback}</AvatarFallback>
                 </Avatar>
                 <div>

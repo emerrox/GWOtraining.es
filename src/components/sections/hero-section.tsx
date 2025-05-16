@@ -7,7 +7,7 @@ export function HeroSection() {
     <section className="relative w-full py-20 md:py-32 lg:py-40 bg-secondary/30">
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/images/hero-wind-turbine-safety-training.jpg" // Actualiza este nombre de archivo
+          src="/images/titulo.png" 
           alt="Formación de técnico de aerogeneradores en altura"
           layout="fill"
           objectFit="cover"

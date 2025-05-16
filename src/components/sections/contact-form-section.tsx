@@ -56,11 +56,12 @@ export function ContactFormSection() {
           </Card>
           <div className="hidden lg:block relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
              <Image
-                src="/images/contact-customer-service.jpg" // Actualiza este nombre de archivo
+                src="https://placehold.co/600x450.png" 
                 alt="Persona de contacto para cursos GWO"
                 layout="fill"
                 objectFit="cover"
                 className="rounded-lg"
+                data-ai-hint="customer service"
               />
           </div>
         </div>

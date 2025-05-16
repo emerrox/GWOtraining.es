@@ -18,7 +18,7 @@ export function AboutGwoSection() {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <Image
-              src="/images/about-wind-turbine-safety.jpg" // Actualiza este nombre de archivo
+              src="/images/curso4.png" 
               alt="Equipamiento de seguridad para formación GWO"
               width={600}
               height={400}

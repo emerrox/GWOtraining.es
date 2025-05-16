@@ -6,19 +6,19 @@ const courses = [
     title: 'GWO Formación Básica en Seguridad (BST)',
     level: 'Módulos Básicos de Seguridad',
     description: 'Formación esencial en seguridad que cubre Primeros Auxilios, Manipulación Manual de Cargas, Concienciación sobre Incendios, Trabajos en Altura y Supervivencia en el Mar (dependiendo del módulo).',
-    imageUrl: '/images/curso.png',
+    imageUrl: '/images/curso1.png',
   },
   {
     title: 'GWO Trabajos en Altura',
     level: 'Módulo Especializado',
     description: 'Formación exhaustiva sobre trabajo seguro en altura, identificación de peligros, rescate avanzado y uso de equipos de protección individual (EPI).',
-    imageUrl: '/images/curso1.png',
+    imageUrl: '/images/curso2.png',
   },
   {
     title: 'GWO Formación Avanzada en Rescate (ART)',
     level: 'Módulo Avanzado',
     description: 'Desarrolla habilidades para operaciones de rescate avanzadas en diversos entornos de góndola, torre y cimentación de aerogeneradores.',
-    imageUrl: 'https://placehold.co/400x300.png', // Placeholder para el tercer curso
+    imageUrl: '/images/curso3.png',
   },
 ];
 
@@ -35,15 +35,14 @@ export function CoursesSection() {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {courses.map((course, index) => (
+          {courses.map((course) => (
             <CourseCard
               key={course.title}
               title={course.title}
               level={course.level}
               description={course.description}
               imageUrl={course.imageUrl}
-              // Añadir data-ai-hint solo si es un placeholder
-              {...(course.imageUrl.startsWith('https://placehold.co') ? { 'data-ai-hint': 'rescue training' } : {})}
+              data-ai-hint={course.imageUrl.startsWith('https://placehold.co') ? 'rescue training' : undefined}
             />
           ))}
         </div>
