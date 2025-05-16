@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, ShieldCheck, Award, TrendingUp, MapPin, BookOpen } from 'lucide-react';
 
@@ -48,7 +49,7 @@ export function WhyChooseUsSection() {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {benefits.map((benefit) => (
-            <Card key={benefit.title} className="text-center shadow-md hover:shadow-lg transition-shadow duration-300">
+            <Card key={benefit.title} className="text-center shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:scale-[1.02]">
               <CardHeader>
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground mb-4">
                   <benefit.icon className="h-6 w-6" />

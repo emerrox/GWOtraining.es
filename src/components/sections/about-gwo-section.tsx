@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShieldCheck, Globe, TrendingUp } from 'lucide-react';
@@ -26,7 +27,7 @@ export function AboutGwoSection() {
             />
           </div>
           <div className="space-y-6">
-            <Card className="bg-card shadow-md">
+            <Card className="bg-card shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:scale-[1.02]">
               <CardHeader>
                 <CardTitle className="flex items-center text-xl text-primary">
                   <ShieldCheck className="mr-2 h-6 w-6" />
@@ -39,7 +40,7 @@ export function AboutGwoSection() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-card shadow-md">
+            <Card className="bg-card shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:scale-[1.02]">
               <CardHeader>
                 <CardTitle className="flex items-center text-xl text-primary">
                   <Globe className="mr-2 h-6 w-6" />
@@ -52,7 +53,7 @@ export function AboutGwoSection() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-card shadow-md">
+            <Card className="bg-card shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:scale-[1.02]">
               <CardHeader>
                 <CardTitle className="flex items-center text-xl text-primary">
                   <TrendingUp className="mr-2 h-6 w-6" />
