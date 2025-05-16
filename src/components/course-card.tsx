@@ -13,7 +13,7 @@ interface CourseCardProps {
 
 export function CourseCard({ title, level, description, icon: Icon }: CourseCardProps) {
   return (
-    <Card className="group flex flex-col h-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.02] overflow-hidden">
+    <Card className="group flex flex-col h-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out overflow-hidden">
       <CardHeader className="p-6 flex flex-col items-center justify-center h-40 bg-secondary/20">
         <Icon className="h-16 w-16 text-primary" aria-hidden="true" />
       </CardHeader>
